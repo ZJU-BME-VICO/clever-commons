@@ -1,0 +1,240 @@
+archetype (adl_version=1.4)
+    openEHR-EHR-OBSERVATION.imaging_exam_image_series-zju.v1
+
+concept
+    [at0000]
+
+language
+    original_language = <[ISO_639-1::en]>
+
+description
+    original_author = <
+        ["date"] = <"2014-09-10">
+        ["name"] = <"Li Wang">
+        ["organisation"] = <"Zhejiang University">
+        ["email"] = <"daowangli@icloud.com">
+    >
+    lifecycle_state = <"Initial">
+    details = <
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            purpose = <"For recording imaging exam image series.">
+            keywords = <"imaging","exam","result">
+            copyright = <"© Zhejiang University">
+            use = <"Use for recording imaging exam image series.">
+        >
+    >
+    other_details = <
+    >
+
+definition
+    OBSERVATION[at0000] matches {	--	Imaging series
+        data matches {
+            HISTORY[at0001] matches {	--	Event series
+                events cardinality matches {1..*; unordered} matches {
+                    EVENT[at0002] occurrences matches {0..1} matches {	--	Any event
+                        data matches {
+                            ITEM_TREE[at0003] matches {	--	Tree
+                                items cardinality matches {0..*; unordered} matches {
+                                    CLUSTER[at0019] occurrences matches {0..*} matches {	--	Images
+                                        items cardinality matches {1..*; unordered} matches {
+                                            ELEMENT[at0004] occurrences matches {0..1} matches {	--	View
+                                                value matches {
+                                                    DV_TEXT matches {*}
+                                                }
+                                            }
+                                            ELEMENT[at0005] occurrences matches {0..1} matches {	--	Position
+                                                value matches {
+                                                    DV_TEXT matches {*}
+                                                }
+                                            }
+                                            ELEMENT[at0006] occurrences matches {0..1} matches {	--	Image DateTime
+                                                value matches {
+                                                    DV_DATE_TIME matches {*}
+                                                }
+                                            }
+                                            ELEMENT[at0007] occurrences matches {0..1} matches {	--	Image
+                                                value matches {
+                                                    DV_MULTIMEDIA matches {*}
+                                                }
+                                            }
+                                            ELEMENT[at0008] occurrences matches {0..1} matches {	--	Key image
+                                                value matches {
+                                                    DV_BOOLEAN matches {*}
+                                                }
+                                            }
+                                            ELEMENT[at0020] occurrences matches {0..1} matches {	--	Image identifier
+                                                value matches {
+                                                    DV_IDENTIFIER matches {*}
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        protocol matches {
+            ITEM_TREE[at0014] matches {	--	Tree
+                items cardinality matches {0..*; unordered} matches {
+                    ELEMENT[at0015] occurrences matches {0..1} matches {	--	Requester order identifier
+                        value matches {
+                            DV_IDENTIFIER matches {*}
+                        }
+                    }
+                    ELEMENT[at0016] occurrences matches {0..1} matches {	--	Receiver order identifier
+                        value matches {
+                            DV_IDENTIFIER matches {*}
+                        }
+                    }
+                    ELEMENT[at0017] occurrences matches {0..1} matches {	--	DICOM study identifier
+                        value matches {
+                            DV_IDENTIFIER matches {*}
+                        }
+                    }
+                    ELEMENT[at0018] occurrences matches {0..1} matches {	--	DICOM series identifier
+                        value matches {
+                            DV_IDENTIFIER matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        provider matches {
+            PARTY_SELF[at0010] matches {	--	Reporter
+                externalRef matches {
+                    PARTY_REF[at0011] matches {	--	Reporter
+                        id matches {
+                            GENERIC_ID matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        links cardinality matches {0..*; unordered} matches {
+            LINK[at0013] occurrences matches {0..*} matches {	--	Examination requested
+                meaning matches {
+                    DV_TEXT matches {
+                        value matches {"related to"}
+                    }
+                }
+                target matches {
+                    DV_EHR_URI matches {
+                        value matches {"openEHR-EHR-INSTRUCTION.request-imaging_exam-zju.v1/activities[at0001]"}
+                    }
+                }
+            }
+        }
+    }
+
+ontology
+    term_definitions = <
+        ["en"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Imaging series">
+                    description = <"Record the findings and interpretation of an imaging examination, or series of examinations, performed.">
+
+                >
+                ["at0001"] = <
+                    text = <"Event series">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Any event">
+                    description = <"Any event.">
+
+                >
+                ["at0003"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0004"] = <
+                    text = <"View">
+                    description = <"The name of the imaging view e.g Lateral or Antero-posterior (AP). Coding using a terminology is desirable, where possible.">
+
+                >
+                ["at0005"] = <
+                    text = <"Position">
+                    description = <"Description of the subject of care's positon when the image was performed.">
+
+                >
+                ["at0006"] = <
+                    text = <"Image DateTime">
+                    description = <"Specific date/time the imaging examination was performed.">
+
+                >
+                ["at0007"] = <
+                    text = <"Image">
+                    description = <"An attached or referenced image of a current view.">
+
+                >
+                ["at0008"] = <
+                    text = <"Key image">
+                    description = <"">
+
+                >
+                ["at0010"] = <
+                    text = <"Reporter">
+                    description = <"">
+
+                >
+                ["at0011"] = <
+                    text = <"Reporter">
+                    description = <"">
+
+                >
+                ["at0013"] = <
+                    text = <"Examination requested">
+                    description = <"">
+
+                >
+                ["at0014"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0015"] = <
+                    text = <"Requester order identifier">
+                    description = <"The local identifier assigned to the order by the order requester. Equivalent to the HL7 Placer Order Identifier.">
+
+                >
+                ["at0016"] = <
+                    text = <"Receiver order identifier">
+                    description = <"The local identifier assigned to the examination order by the order filler, usually by the Radiology Information System (RIS). Usually equivalent to the HL7 Filler Order Number.">
+
+                >
+                ["at0017"] = <
+                    text = <"DICOM study identifier">
+                    description = <"Unique identifier of this study allocated by the imaging service.">
+
+                >
+                ["at0018"] = <
+                    text = <"DICOM series identifier">
+                    description = <"Unique identifier of this series allocated by the imaging service.">
+
+                >
+                ["at0019"] = <
+                    text = <"Images">
+                    description = <"">
+
+                >
+                ["at0020"] = <
+                    text = <"Image identifier">
+                    description = <"Unique identifier of this image allocated by the imaging service (often the DICOM image instance UID).">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >

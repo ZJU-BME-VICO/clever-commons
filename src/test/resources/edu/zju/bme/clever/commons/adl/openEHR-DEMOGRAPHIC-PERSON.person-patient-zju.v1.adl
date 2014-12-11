@@ -1,0 +1,272 @@
+archetype (adl_version=1.4)
+    openEHR-DEMOGRAPHIC-PERSON.person-patient-zju.v1
+specialize
+    openEHR-DEMOGRAPHIC-PERSON.person-patient.v1
+
+concept
+    [at0000.1.1]
+
+language
+    original_language = <[ISO_639-1::pt-br]>
+    translations = <
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            author = <
+                ["name"] = <"Sergio Miranda Freire">
+                ["organisation"] = <"Universidade do Estado do Rio de Janeiro - UERJ">
+                ["email"] = <"sergio@lampada.uerj.br">
+            >
+        >
+    >
+
+description
+    original_author = <
+        ["date"] = <"22/05/2009">
+        ["name"] = <"Sergio Miranda Freire & Rigoleta Dutra Mediano Dias">
+        ["organisation"] = <"Universidade do Estado do Rio de Janeiro - UERJ">
+        ["email"] = <"sergio@lampada.uerj.br">
+    >
+    lifecycle_state = <"Authordraft">
+    details = <
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            purpose = <"Representation of a patient's demographic data.">
+            keywords = <"demographic service","patient's data">
+            copyright = <"© 2011 openEHR Foundation">
+            use = <"Used in demographic service to collect a patient's data.">
+        >
+        ["pt-br"] = <
+            language = <[ISO_639-1::pt-br]>
+            purpose = <"Representação dos dados demográficos de um paciente.">
+            keywords = <"serviço demográfico","dados de um paciente">
+            copyright = <"© 2011 openEHR Foundation">
+            use = <"Usado em serviço demográficos para coletar os dados de um paciente.">
+        >
+    >
+    other_details = <
+        ["references"] = <"ISO/TS 22220:2008(E) - Identification of Subject of Care - Technical Specification - International Organization for Standardization.">
+    >
+
+definition
+    PERSON[at0000.1.1] matches {	--	Patient
+        details matches {
+            allow_archetype ITEM_TREE[at0001] matches {	--	Demographic details
+                include
+                    archetype_id/value matches {/(person_details)[a-zA-Z0-9_-]*\.v1/}
+            }
+        }
+        identities matches {
+            allow_archetype PARTY_IDENTITY[at0002.1] matches {	--	Name
+                include
+                    archetype_id/value matches {/(person_name)[a-zA-Z0-9_-]*\.v1/}
+            }
+        }
+        contacts matches {
+            CONTACT[at0003.1] matches {	--	Contacts
+                addresses matches {
+                    allow_archetype ADDRESS[at0030] matches {	--	Addresses
+                        include
+                            archetype_id/value matches {/(address)([a-zA-Z0-9_]+)*\.v1/}
+                            archetype_id/value matches {/(electronic_communication)[a-zA-Z0-9_-]*\.v1/}
+                    }
+                }
+            }
+        }
+        relationships matches {
+            PARTY_RELATIONSHIP[at0.3] matches {	--	Healthcare provider/Health professional
+                details matches {
+                    ITEM_TREE[at0.30] matches {	--	Patient identifiers
+                        items matches {
+                            allow_archetype CLUSTER[at0.31] matches {	--	Patient identifier
+                                include
+                                    archetype_id/value matches {/(person_identifier)[a-zA-Z0-9_-]*\.v1/}
+                            }
+                        }
+                    }
+                }
+            }
+            PARTY_RELATIONSHIP[at0000.1.2] matches {	--	Reference patient identifier
+                details matches {
+                    ITEM_TREE[at0000.1.3] matches {	--	Reference patient identifier
+                        items matches {
+                            allow_archetype CLUSTER[at0000.1.4] matches {	--	Reference patient identifier
+                                include
+                                    archetype_id/value matches {/(person_identifier)[a-zA-Z0-9_-]*\.v1/}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+ontology
+    term_definitions = <
+        ["pt-br"] = <
+            items = <
+                ["at0000.1"] = <
+                    text = <"Dados do paciente">
+                    description = <"Dados do paciente.">
+
+                >
+                ["at0000.1.1"] = <
+                    text = <"Dados do paciente">
+                    description = <"Dados do paciente.">
+
+                >
+                ["at0001"] = <
+                    text = <"Detalhes">
+                    description = <"Detalhes demográficos do paciente.">
+
+                >
+                ["at0002"] = <
+                    text = <"Nome">
+                    description = <"Conjunto de dados que especificam o nome da pessoa.">
+
+                >
+                ["at0003"] = <
+                    text = <"Contatos">
+                    description = <"Contatos da pessoa.">
+
+                >
+                ["at0002.1"] = <
+                    text = <"Nome">
+                    description = <"Conjunto de dados que especificam o nome do paciente.">
+
+                >
+                ["at0003.1"] = <
+                    text = <"Contatos">
+                    description = <"Contatos da pessoa.">
+
+                >
+                ["at0030"] = <
+                    text = <"Endereço">
+                    description = <"Endereços vinculados a um único contato, ou seja, com o mesmo período de validade.">
+
+                >
+                ["at0040"] = <
+                    text = <"Grau de parentesco">
+                    description = <"Define o grau de parentesco entre as pessoas envolvidas.">
+
+                >
+                ["at0.3"] = <
+                    text = <"Serviço de saúde/Profissional de saúde">
+                    description = <"Relacionamento do paciente com uma organização prestadora de serviço de saúde/profissional de saúde.">
+
+                >
+                ["at0.30"] = <
+                    text = <"Identificações no prestador">
+                    description = <"Identificações do paciente junto ao prestador.">
+
+                >
+                ["at0.31"] = <
+                    text = <"Identificação no prestador">
+                    description = <"Documento de identificação do paciente junto ao prestador.">
+
+                >
+            >
+        >
+        ["en"] = <
+            items = <
+                ["at0000.1"] = <
+                    text = <"Patient">
+                    description = <"Patient demographic data.">
+
+                >
+                ["at0000.1.1"] = <
+                    text = <"Patient">
+                    description = <"Patient demographic data.">
+
+                >
+                ["at0001"] = <
+                    text = <"Demographic details">
+                    description = <"A patient's demographic details.">
+
+                >
+                ["at0002"] = <
+                    text = <"Name">
+                    description = <"A person's name.">
+
+                >
+                ["at0003"] = <
+                    text = <"Contacts">
+                    description = <"A person's contacts.">
+
+                >
+                ["at0002.1"] = <
+                    text = <"Name">
+                    description = <"A patient's name.">
+
+                >
+                ["at0003.1"] = <
+                    text = <"Contacts">
+                    description = <"A patient's contacts.">
+
+                >
+                ["at0030"] = <
+                    text = <"Addresses">
+                    description = <"Addresses linked to a single contact, i.e. with the same time validity.">
+
+                >
+                ["at0040"] = <
+                    text = <"Relationship type">
+                    description = <"Defines the type of relationship between related persons.">
+
+                >
+                ["at0.3"] = <
+                    text = <"Healthcare provider/Health professional">
+                    description = <"Patient: relationship between the patient and a healthcare provider organisation/health professional.">
+
+                >
+                ["at0.30"] = <
+                    text = <"Patient identifiers">
+                    description = <"Patient identifiers at the related healthcare provider.">
+
+                >
+                ["at0.31"] = <
+                    text = <"Patient identifier">
+                    description = <"A patient identifier at the related healthcare provider.">
+
+                >
+                ["at0000.1.2"] = <
+                    text = <"Reference patient identifier">
+                    description = <"">
+
+                >
+                ["at0000.1.3"] = <
+                    text = <"Reference patient identifier">
+                    description = <"">
+
+                >
+                ["at0000.1.4"] = <
+                    text = <"Reference patient identifier">
+                    description = <"">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+        ["pt-br"] = <
+            items = <
+                ["ac0000"] = <
+                    text = <"Códigos para tipo de parentesco">
+                    description = <"códigos válidos para tipo de parentesco.">
+
+                >
+            >
+        >
+        ["en"] = <
+            items = <
+                ["ac0000"] = <
+                    text = <"Codes for the type of relationship">
+                    description = <"Valid codes for the type of relationship.">
+
+                >
+            >
+        >
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >

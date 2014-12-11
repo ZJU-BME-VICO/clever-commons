@@ -1,0 +1,304 @@
+archetype (adl_version=1.4)
+    openEHR-EHR-OBSERVATION.imaging_exam_report-zju.v1
+
+concept
+    [at0000]
+
+language
+    original_language = <[ISO_639-1::en]>
+
+description
+    original_author = <
+        ["date"] = <"2014-09-10">
+        ["name"] = <"Li Wang">
+        ["organisation"] = <"Zhejiang University">
+        ["email"] = <"daowangli@icloud.com">
+    >
+    lifecycle_state = <"Initial">
+    details = <
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            purpose = <"For recording imaging exam report.">
+            keywords = <"imaging","exam","result">
+            copyright = <"© Zhejiang University">
+            use = <"Use for recording imaging exam report.">
+        >
+    >
+    other_details = <
+    >
+
+definition
+    OBSERVATION[at0000] matches {	--	Imaging examination report
+        data matches {
+            HISTORY[at0001] matches {	--	Event Series
+                events cardinality matches {1..*; unordered} matches {
+                    EVENT[at0002] occurrences matches {0..1} matches {	--	Any event
+                        data matches {
+                            ITEM_TREE[at0003] matches {	--	Tree
+                                items cardinality matches {2..*; unordered} matches {
+                                    ELEMENT[at0004] matches {	--	Exam description
+                                        value matches {
+                                            DV_TEXT matches {*}
+                                        }
+                                    }
+                                    ELEMENT[at0005] occurrences matches {0..1} matches {	--	DateTime issued
+                                        value matches {
+                                            DV_DATE_TIME matches {*}
+                                        }
+                                    }
+                                    ELEMENT[at0006] occurrences matches {0..1} matches {	--	Findings
+                                        value matches {
+                                            DV_TEXT matches {*}
+                                        }
+                                    }
+                                    CLUSTER[at0019] occurrences matches {0..1} matches {	--	Result group
+                                        items cardinality matches {1..*; unordered} matches {
+                                            ELEMENT[at0020] occurrences matches {0..*} matches {	--	Result value
+                                                value matches {
+                                                    DV_TEXT matches {*}
+                                                }
+                                            }
+                                            ELEMENT[at0021] occurrences matches {0..*} matches {	--	Result comment
+                                                value matches {
+                                                    DV_TEXT matches {*}
+                                                }
+                                            }
+                                            ELEMENT[at0022] occurrences matches {0..*} matches {	--	Result item
+                                                value matches {
+                                                    DV_CODED_TEXT matches {*}
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ELEMENT[at0007] occurrences matches {0..1} matches {	--	Conclusion
+                                        value matches {
+                                            DV_TEXT matches {*}
+                                        }
+                                    }
+                                    ELEMENT[at0008] occurrences matches {0..1} matches {	--	Memo
+                                        value matches {
+                                            DV_TEXT matches {*}
+                                        }
+                                    }
+                                    ELEMENT[at0009] occurrences matches {0..1} matches {	--	Representation
+                                        value matches {
+                                            DV_MULTIMEDIA matches {*}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        protocol matches {
+            ITEM_TREE[at0014] matches {	--	Tree
+                items cardinality matches {0..*; unordered} matches {
+                    ELEMENT[at0015] occurrences matches {0..1} matches {	--	Requester order identifier
+                        value matches {
+                            DV_IDENTIFIER matches {*}
+                        }
+                    }
+                    ELEMENT[at0016] occurrences matches {0..1} matches {	--	Receiver order identifier
+                        value matches {
+                            DV_IDENTIFIER matches {*}
+                        }
+                    }
+                    ELEMENT[at0017] occurrences matches {0..1} matches {	--	Report identifier
+                        value matches {
+                            DV_IDENTIFIER matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        provider matches {
+            PARTY_SELF[at0010] matches {	--	Reporter
+                externalRef matches {
+                    PARTY_REF[at0011] matches {	--	Reporter
+                        id matches {
+                            GENERIC_ID matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        otherParticipations cardinality matches {0..*; unordered} matches {
+            PARTICIPATION[at0012] occurrences matches {0..1} matches {	--	Reviewer
+                performer matches {
+                    PARTY_RELATED matches {
+                        externalRef matches {
+                            PARTY_REF matches {
+                                id matches {
+                                    GENERIC_ID matches {*}
+                                }
+                            }
+                        }
+                        relationship matches {
+                            DV_CODED_TEXT matches {
+                                defining_code matches {
+                                    [local::at0012]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        links cardinality matches {0..*; unordered} matches {
+            LINK[at0013] occurrences matches {0..*} matches {	--	Examination requested
+                meaning matches {
+                    DV_TEXT matches {
+                        value matches {"related to"}
+                    }
+                }
+                target matches {
+                    DV_EHR_URI matches {
+                        value matches {"openEHR-EHR-INSTRUCTION.request-imaging_exam-zju.v1/activities[at0001]"}
+                    }
+                }
+            }
+            LINK[at0018] occurrences matches {0..*} matches {	--	Image series
+                meaning matches {
+                    DV_TEXT matches {
+                        value matches {"related to"}
+                    }
+                }
+                target matches {
+                    DV_EHR_URI matches {
+                        value matches {"openEHR-EHR-OBSERVATION.imaging_exam_image_series-zju.v1"}
+                    }
+                }
+            }
+        }
+    }
+
+ontology
+    term_definitions = <
+        ["en"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Imaging examination report">
+                    description = <"Record the findings and interpretation of an imaging examination, or series of examinations, performed.">
+
+                >
+                ["at0001"] = <
+                    text = <"Event Series">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Any event">
+                    description = <"Any event.">
+
+                >
+                ["at0003"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0004"] = <
+                    text = <"Exam description">
+                    description = <"">
+
+                >
+                ["at0005"] = <
+                    text = <"DateTime issued">
+                    description = <"">
+
+                >
+                ["at0006"] = <
+                    text = <"Findings">
+                    description = <"">
+
+                >
+                ["at0007"] = <
+                    text = <"Conclusion">
+                    description = <"">
+
+                >
+                ["at0008"] = <
+                    text = <"Memo">
+                    description = <"">
+
+                >
+                ["at0009"] = <
+                    text = <"Representation">
+                    description = <"">
+
+                >
+                ["at0010"] = <
+                    text = <"Reporter">
+                    description = <"">
+
+                >
+                ["at0011"] = <
+                    text = <"Reporter">
+                    description = <"">
+
+                >
+                ["at0012"] = <
+                    text = <"Reviewer">
+                    description = <"">
+
+                >
+                ["at0013"] = <
+                    text = <"Examination requested">
+                    description = <"">
+
+                >
+                ["at0014"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0015"] = <
+                    text = <"Requester order identifier">
+                    description = <"The local identifier assigned to the order by the order requester. Equivalent to the HL7 Placer Order Identifier.">
+
+                >
+                ["at0016"] = <
+                    text = <"Receiver order identifier">
+                    description = <"The local identifier assigned to the examination order by the order filler, usually by the Radiology Information System (RIS). Usually equivalent to the HL7 Filler Order Number.">
+
+                >
+                ["at0017"] = <
+                    text = <"Report identifier">
+                    description = <"The local identifier given to the imaging examination report.">
+
+                >
+                ["at0018"] = <
+                    text = <"Image series">
+                    description = <"">
+
+                >
+                ["at0019"] = <
+                    text = <"Result group">
+                    description = <"A group of structured results. Results may be grouped by anatomical location or by some other name or code to describe what binds all the results together. If a name or code is used, it is provided by run-time re-naming of the 'Result group' element or may be fixed in a specialised archetype or template. Coding with a terminology, potentially a pre-coordinated term including specimen type, is preferred where possible for the name. Should be coded with LOINC or SNOMED CT.">
+
+                >
+                ["at0020"] = <
+                    text = <"Result value">
+                    description = <"Actual value of the result. Most result values will be numerical measurements, but others may be coded concepts or free text.">
+
+                >
+                ["at0021"] = <
+                    text = <"Result comment">
+                    description = <"May include statements about significant, unexpected or unreliable values, or information about the source of the value where this may be relevant to the interpretation of the result.">
+
+                >
+                ["at0022"] = <
+                    text = <"Result item">
+                    description = <"">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >

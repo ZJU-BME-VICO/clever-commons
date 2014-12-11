@@ -1,0 +1,206 @@
+archetype (adl_version=1.4)
+    openEHR-EHR-ADMIN_ENTRY.transfer-zju.v1
+
+concept
+    [at0000]
+
+language
+    original_language = <[ISO_639-1::en]>
+
+description
+    original_author = <
+        ["date"] = <"13/07/2014">
+        ["name"] = <"Li Wang">
+        ["organisation"] = <"ZJU">
+        ["email"] = <"daowangli@icloud.com">
+    >
+    lifecycle_state = <"initial">
+    details = <
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            purpose = <"To record patient transfer information">
+            keywords = <"transfer">
+            copyright = <"© ZJU">
+            use = <"To">
+            misuse = <"Not to">
+        >
+    >
+    other_details = <
+    >
+
+definition
+    ADMIN_ENTRY[at0000] matches {	--	Transfer
+        subject matches {
+            PARTY_SELF[at0020] matches {	--	Patient
+                externalRef matches {
+                    PARTY_REF[at0021] matches {	--	Patient
+                        id matches {
+                            GENERIC_ID matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        data matches {
+            ITEM_TREE[at0001] matches {	--	Tree
+                items cardinality matches {0..*; unordered} matches {
+                    ELEMENT[at0008] occurrences matches {0..1} matches {	--	Source department
+                        value matches {
+                            DV_CODED_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0009] occurrences matches {0..1} matches {	--	Source ward
+                        value matches {
+                            DV_CODED_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0010] occurrences matches {0..1} matches {	--	Source bed
+                        value matches {
+                            DV_CODED_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0013] occurrences matches {0..1} matches {	--	Type
+                        value matches {
+                            DV_CODED_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0014] occurrences matches {0..1} matches {	--	Target department
+                        value matches {
+                            DV_CODED_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0015] occurrences matches {0..1} matches {	--	Target ward
+                        value matches {
+                            DV_CODED_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0016] occurrences matches {0..1} matches {	--	Target bed
+                        value matches {
+                            DV_CODED_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0018] occurrences matches {0..1} matches {	--	Datetime
+                        value matches {
+                            DV_DATE_TIME matches {*}
+                        }
+                    }
+                    ELEMENT[at0019] occurrences matches {0..1} matches {	--	Previous status
+                        value matches {
+                            DV_CODED_TEXT matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        otherParticipations cardinality matches {0..*; unordered} matches {
+            PARTICIPATION[at0022] occurrences matches {0..1} matches {	--	Actor
+                performer matches {
+                    PARTY_RELATED matches {
+                        externalRef matches {
+                            PARTY_REF matches {
+                                id matches {
+                                    GENERIC_ID matches {*}
+                                }
+                            }
+                        }
+                        relationship matches {
+                            DV_CODED_TEXT matches {
+                                defining_code matches {
+                                    [local::at0023]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+ontology
+    term_definitions = <
+        ["en"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Transfer">
+                    description = <"unknown">
+
+                >
+                ["at0001"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0008"] = <
+                    text = <"Source department">
+                    description = <"*">
+
+                >
+                ["at0009"] = <
+                    text = <"Source ward">
+                    description = <"*">
+
+                >
+                ["at0010"] = <
+                    text = <"Source bed">
+                    description = <"*">
+
+                >
+                ["at0013"] = <
+                    text = <"Type">
+                    description = <"*">
+
+                >
+                ["at0014"] = <
+                    text = <"Target department">
+                    description = <"*">
+
+                >
+                ["at0015"] = <
+                    text = <"Target ward">
+                    description = <"*">
+
+                >
+                ["at0016"] = <
+                    text = <"Target bed">
+                    description = <"*">
+
+                >
+                ["at0018"] = <
+                    text = <"Datetime">
+                    description = <"*">
+
+                >
+                ["at0019"] = <
+                    text = <"Previous status">
+                    description = <"*">
+
+                >
+                ["at0020"] = <
+                    text = <"Patient">
+                    description = <"*">
+
+                >
+                ["at0021"] = <
+                    text = <"Patient">
+                    description = <"*">
+
+                >
+                ["at0022"] = <
+                    text = <"Actor">
+                    description = <"*">
+
+                >
+                ["at0023"] = <
+                    text = <"Actor">
+                    description = <"*">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >

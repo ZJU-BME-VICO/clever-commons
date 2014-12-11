@@ -1,0 +1,242 @@
+archetype (adl_version=1.4)
+    openEHR-EHR-ACTION.lab_test-zju.v1
+
+concept
+    [at0000]
+
+language
+    original_language = <[ISO_639-1::en]>
+
+description
+    original_author = <
+        ["date"] = <"2014-09-10">
+        ["name"] = <"Li Wang">
+        ["organisation"] = <"Zhejiang University">
+        ["email"] = <"daowangli@icloud.com">
+    >
+    lifecycle_state = <"Initial">
+    details = <
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            purpose = <"To record activity regarding the performance of lab test.">
+            keywords = <"lab">
+            copyright = <"© Zhejiang University">
+            use = <"Use to record activity regarding the performance of lab test.">
+        >
+    >
+    other_details = <
+        ["MD5-CAM-1.0.1"] = <"D232231706137B7882AC0145E72C3751">
+    >
+
+definition
+    ACTION[at0000] matches {	--	Lab test
+        ism_transition matches {
+            ISM_TRANSITION[at0003] matches {	--	Lab test requested
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::526]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0003]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0011] matches {	--	Lab test cancelled
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::528]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0011]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0004] matches {	--	Appointment scheduled
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::529]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0004]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0008] matches {	--	Lab test performed
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0008]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0012] matches {	--	Lab test aborted
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::531]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0012]
+                        }
+                    }
+                }
+            }
+        }
+        time matches {
+            DV_DATE_TIME[at0013] matches {*}	--	Action date time
+        }
+        provider matches {
+            PARTY_IDENTIFIED[at0014] matches {	--	Actor
+                externalRef matches {
+                    PARTY_REF[at0015] matches {	--	Actor
+                        id matches {
+                            GENERIC_ID matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        instructionDetails matches {
+            INSTRUCTION_DETAILS[at0016] matches {	--	Request activity
+                activityId matches {"/activities[at0001]"}
+                instructionId matches {
+                    LOCATABLE_REF[at0017] matches {	--	Request instruction
+                        path matches {"openEHR-EHR-INSTRUCTION.request-lab_test-zju.v1"}
+                    }
+                }
+            }
+        }
+    }
+
+ontology
+    term_definitions = <
+        ["en"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Lab test">
+                    description = <"Clinical activity about performing an lab test.">
+
+                >
+                ["at0003"] = <
+                    text = <"Lab test requested">
+                    description = <"Lab test has been requested.">
+
+                >
+                ["at0004"] = <
+                    text = <"Appointment scheduled">
+                    description = <"Lab test appointment has been made.">
+
+                >
+                ["at0008"] = <
+                    text = <"Lab test performed">
+                    description = <"The lab test was performed but related activities not completed.">
+
+                >
+                ["at0011"] = <
+                    text = <"Lab test cancelled">
+                    description = <"The planned lab test has been cancelled prior to commencement.">
+
+                >
+                ["at0012"] = <
+                    text = <"Lab test aborted">
+                    description = <"The lab test has been aborted.">
+
+                >
+                ["at0013"] = <
+                    text = <"Action date time">
+                    description = <"">
+
+                >
+                ["at0014"] = <
+                    text = <"Actor">
+                    description = <"">
+
+                >
+                ["at0015"] = <
+                    text = <"Actor">
+                    description = <"">
+
+                >
+                ["at0016"] = <
+                    text = <"Request activity">
+                    description = <"">
+
+                >
+                ["at0017"] = <
+                    text = <"Request instruction">
+                    description = <"">
+
+                >
+            >
+        >
+        ["zh"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Lab test">
+                    description = <"Clinical activity about performing an lab test.">
+
+                >
+                ["at0003"] = <
+                    text = <"申请下达">
+                    description = <"Lab test has been requested.">
+
+                >
+                ["at0004"] = <
+                    text = <"检验预约">
+                    description = <"Lab test appointment has been made.">
+
+                >
+                ["at0008"] = <
+                    text = <"检验结束">
+                    description = <"The lab test was performed but related activities not completed.">
+
+                >
+                ["at0011"] = <
+                    text = <"申请已取消">
+                    description = <"The planned lab test has been cancelled prior to commencement.">
+
+                >
+                ["at0012"] = <
+                    text = <"检验作废">
+                    description = <"The examination has been aborted.">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >
