@@ -19,23 +19,24 @@ import se.acode.openehr.parser.ADLParser;
 
 public class ArchetypeTestCase {
 
-	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private Map<String, Archetype> archetypes = new HashMap<String, Archetype>();
+	protected static final Logger LOGGER = LoggerFactory
+			.getLogger(ArchetypeTestCase.class);
+	private static final Map<String, Archetype> ARCHETYPES = new HashMap<String, Archetype>();
 
-	public ArchetypeTestCase() throws IOException {
-		URL url = this.getClass().getClassLoader()
-				.getResource("edu/zju/bme/clever/commons/adl");
+	static {
+		URL url = ArchetypeTestCase.class.getClassLoader().getResource(
+				"edu/zju/bme/clever/commons/adl");
 		File directory = new File(url.getPath());
 		Arrays.asList(directory.listFiles()).forEach(
 				file -> {
 					try {
 						ADLParser parser = new ADLParser(file);
 						Archetype archetype = parser.parse();
-						this.archetypes.put(archetype.getArchetypeId()
-								.getValue(), archetype);
+						ARCHETYPES.put(archetype.getArchetypeId().getValue(),
+								archetype);
 					} catch (Exception ex) {
 						// TODO Auto-generated catch block
-						this.logger.debug(
+						LOGGER.debug(
 								"Parser archetype " + file.getName()
 										+ " failed, nested excetion: "
 										+ ex.getMessage(), ex);
@@ -43,11 +44,11 @@ public class ArchetypeTestCase {
 				});
 	}
 
-	public Map<String, Archetype> getArchetypesById(String... archetypeIds)
-			throws ArchetypeNotFoundException {
+	public static Map<String, Archetype> getArchetypesById(
+			String... archetypeIds) throws ArchetypeNotFoundException {
 		Map<String, Archetype> result = new HashMap<String, Archetype>();
 		for (String archetypeId : archetypeIds) {
-			Archetype archetype = this.archetypes.get(archetypeId);
+			Archetype archetype = ARCHETYPES.get(archetypeId);
 			if (archetype == null) {
 				throw new ArchetypeNotFoundException("Cannot find archetype "
 						+ archetypeId + ".");
@@ -57,9 +58,9 @@ public class ArchetypeTestCase {
 		return result;
 	}
 
-	public Archetype getArchetypeById(String archetypeId)
+	public static Archetype getArchetypeById(String archetypeId)
 			throws ArchetypeNotFoundException {
-		Archetype archetype = this.archetypes.get(archetypeId);
+		Archetype archetype = ARCHETYPES.get(archetypeId);
 		if (archetype == null) {
 			throw new ArchetypeNotFoundException("Cannot find archetype "
 					+ archetypeId + ".");
@@ -67,8 +68,8 @@ public class ArchetypeTestCase {
 		return archetype;
 	}
 
-	public Map<String, Archetype> getAllArchetypes() {
-		return this.archetypes;
+	public static Map<String, Archetype> getAllArchetypes() {
+		return ARCHETYPES;
 	}
 
 }
