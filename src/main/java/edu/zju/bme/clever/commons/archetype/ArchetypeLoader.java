@@ -1,4 +1,4 @@
-package edu.zju.clever.commons.archetype;
+package edu.zju.bme.clever.commons.archetype;
 
 import java.io.File;
 import java.util.Arrays;
@@ -11,17 +11,16 @@ import org.slf4j.LoggerFactory;
 
 import se.acode.openehr.parser.ADLParser;
 
-public class ArchetypeTestCase {
+public class ArchetypeLoader {
 
 	protected static final Logger LOGGER = LoggerFactory
-			.getLogger(ArchetypeTestCase.class);
+			.getLogger(ArchetypeLoader.class);
 
 	public static Map<String, Archetype> loadArchetypesFromDirectory(
-			String directoryPath) {
+			File directory) {
 		Map<String, Archetype> archetypes = new HashMap<String, Archetype>();
-		File directory = new File(directoryPath);
 		if (!directory.isDirectory()) {
-			throw new IllegalArgumentException(directoryPath
+			throw new IllegalArgumentException(directory.getPath()
 					+ " is not a directory.");
 		}
 		Arrays.asList(directory.listFiles()).forEach(
@@ -41,6 +40,11 @@ public class ArchetypeTestCase {
 					}
 				});
 		return archetypes;
+	}
+
+	public static Map<String, Archetype> loadArchetypesFromDirectory(
+			String directoryPath) {
+		return loadArchetypesFromDirectory(new File(directoryPath));
 	}
 
 }
