@@ -10,12 +10,14 @@ public class WordUtils {
 			boolean capitalizeFirstLetter) {
 		StringBuilder sb = new StringBuilder();
 		IntStream.range(0, words.size()).forEach(index -> {
-			if (capitalizeFirstLetter || index > 0) {
-				sb.append(words.get(index).substring(0, 1).toUpperCase());
-			} else {
-				sb.append(words.get(index).substring(0, 1).toLowerCase());
+			if (words.get(index).length() > 0) {
+				if (capitalizeFirstLetter || index > 0) {
+					sb.append(words.get(index).substring(0, 1).toUpperCase());
+				} else {
+					sb.append(words.get(index).substring(0, 1).toLowerCase());
+				}
+				sb.append(words.get(index).substring(1).toLowerCase());
 			}
-			sb.append(words.get(index).substring(1).toLowerCase());
 		});
 		return sb.toString();
 	}
@@ -24,7 +26,7 @@ public class WordUtils {
 			boolean capitalizeFirstLetter) {
 		return toCamelCase(Arrays.asList(words), capitalizeFirstLetter);
 	}
-	
+
 	public static String capitalizeFirstLetter(String word) {
 		return word.substring(0, 1).toUpperCase() + word.substring(1);
 	}
@@ -34,6 +36,7 @@ public class WordUtils {
 	}
 
 	public static String filterIllegalCharacter(String word) {
-		return word.replace("&", "And").replace("/", "");
+		return word.replace("&", "And").replace("'", "")
+				.replaceAll("[^a-zA-Z0-9 ]", " ");
 	}
 }
