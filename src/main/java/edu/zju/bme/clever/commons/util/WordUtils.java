@@ -2,9 +2,23 @@ package edu.zju.bme.clever.commons.util;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 public class WordUtils {
+	
+	private final static Pattern PATTERN = Pattern
+			.compile("(.+\\.v\\d+)\\..+$");
+
+	public static String extractVersionMasterName(String name) {
+		Matcher matcher = PATTERN.matcher(name);
+		String versionMasterName = null;
+		if (matcher.find()) {
+			versionMasterName = matcher.group(1);
+		}
+		return versionMasterName;
+	}
 
 	public static String toCamelCase(List<String> words,
 			boolean capitalizeFirstLetter) {
