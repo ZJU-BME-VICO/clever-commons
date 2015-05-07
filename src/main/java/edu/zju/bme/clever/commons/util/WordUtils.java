@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 public class WordUtils {
-	
+
 	private final static Pattern PATTERN = Pattern
 			.compile("(.+\\.v\\d+)\\..+$");
 
@@ -42,11 +42,17 @@ public class WordUtils {
 	}
 
 	public static String capitalizeFirstLetter(String word) {
-		return word.substring(0, 1).toUpperCase() + word.substring(1);
+		if (word.length() > 0) {
+			return word.substring(0, 1).toUpperCase() + word.substring(1);
+		}
+		return word;
 	}
 
 	public static String uncapitalizeFirstLetter(String word) {
-		return word.substring(0, 1).toLowerCase() + word.substring(1);
+		if (word.length() > 0) {
+			return word.substring(0, 1).toLowerCase() + word.substring(1);
+		}
+		return word;
 	}
 
 	public static String filterIllegalCharacter(String word) {
