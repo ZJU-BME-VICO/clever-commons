@@ -26,6 +26,8 @@ public class RestClientSpringImpl implements RestClient {
 		HttpHost host = new HttpHost(this.server, this.port, "http");
 		AuthenticatedHttpComponentsClientHttpRequestFactory factory = new AuthenticatedHttpComponentsClientHttpRequestFactory(
 				host, this.userName, this.password);
+		factory.setConnectTimeout(60000);
+		factory.setReadTimeout(120000);
 		this.template = new RestTemplate(factory);
 	}
 
@@ -45,6 +47,12 @@ public class RestClientSpringImpl implements RestClient {
 			Map<String, ?> urlVariables) {
 		return this.template.getForObject(this.getFullUrl(url), responseType,
 				urlVariables);
+	}
+
+	@Override
+	public <T> T post(String url, Object data, Class<T> responseType) {
+		return this.template.postForEntity(this.getFullUrl(url), data,
+				responseType).getBody();
 	}
 
 }
