@@ -9,4 +9,6 @@ public interface RestClient {
 	public <T> T get(String url, Class<T> responseType,
 			Map<String, ?> urlVariables);
 
+	public <T> T post(String url, Object data, Class<T> responseType);
+
 }
