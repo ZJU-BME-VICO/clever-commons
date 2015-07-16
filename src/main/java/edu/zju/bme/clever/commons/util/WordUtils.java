@@ -41,6 +41,11 @@ public class WordUtils {
 		return toCamelCase(Arrays.asList(words), capitalizeFirstLetter);
 	}
 
+	public static String convertUnderscoreToCamelCase(String string,
+			boolean capitalizeFirstLetter) {
+		return toCamelCase(string.split("_"), capitalizeFirstLetter);
+	}
+
 	public static String capitalizeFirstLetter(String word) {
 		if (word.length() > 0) {
 			return word.substring(0, 1).toUpperCase() + word.substring(1);
